@@ -1,0 +1,27 @@
+import std/string
+import std/test { assert_true, assert_false, assert_eq_int }
+import "./lib" { yes_no, parse_choice, prompt }
+
+fun test_yes_no() {
+    assert_true(yes_no("y", false))
+    assert_true(yes_no("YES", false))
+    assert_false(yes_no("n", true))
+    assert_false(yes_no("nope", true))
+    assert_true(yes_no("", true))
+    assert_false(yes_no("", false))
+}
+
+fun test_parse_choice() {
+    assert_eq_int(parse_choice("1", 3), 0)
+    assert_eq_int(parse_choice("3", 3), 2)
+    assert_eq_int(parse_choice("0", 3), 0 - 1)
+    assert_eq_int(parse_choice("4", 3), 0 - 1)
+    assert_eq_int(parse_choice("x", 3), 0 - 1)
+    assert_eq_int(parse_choice("", 3), 0 - 1)
+}
+
+fun test_prompt_is_styled() {
+    let p = prompt("Name")
+    assert_true(p.contains("Name"))
+    assert_true(p.contains("\u{1b}[36"))
+}

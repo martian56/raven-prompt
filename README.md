@@ -1,5 +1,7 @@
 # raven-prompt
 
+[![CI](https://github.com/martian56/raven-prompt/actions/workflows/ci.yml/badge.svg)](https://github.com/martian56/raven-prompt/actions/workflows/ci.yml)
+
 Small interactive prompts for a terminal program: ask a question, confirm a
 yes/no, or pick from a menu. The question is styled with raven-color, and the
 answer interpreters are plain functions you can test on their own.
@@ -8,14 +10,14 @@ answer interpreters are plain functions you can test on their own.
 
 ```toml
 [dependencies]
-"github.com/martian56/raven-prompt" = "0.1"
+"github.com/martian56/raven-prompt" = "v0.1.0"
 ```
 
 That pulls in raven-color too.
 
 ## Usage
 
-```raven
+```rust
 import "github.com/martian56/raven-prompt" { ask, ask_default, confirm, select }
 
 fun main() {

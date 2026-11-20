@@ -1,6 +1,6 @@
-import std/string
-import std/test { assert_true, assert_false, assert_eq_int }
-import "./lib" { yes_no, parse_choice, prompt }
+import std.string
+from std.test import assert_true, assert_false, assert_eq_int
+from "./lib" import yes_no, parse_choice, prompt
 
 fun test_yes_no() {
     assert_true(yes_no("y", false))

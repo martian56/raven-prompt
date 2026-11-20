@@ -18,16 +18,16 @@ That pulls in raven-color too.
 ## Usage
 
 ```rust
-import "github.com/martian56/raven-prompt" { ask, ask_default, confirm, select }
+from "github.com/martian56/raven-prompt" import ask, ask_default, confirm, select
 
 fun main() {
     let name = ask("What's your name")
     let env = ask_default("Environment", "production")
     if confirm("Deploy now", false) {
         let region = select("Region", ["us-east", "eu-west", "ap-south"])
-        // region is the chosen 0-based index, or -1 if the answer wasn't valid
     }
 }
+// region is the chosen 0-based index, or -1 if the answer wasn't valid
 ```
 
 Each prompt reads one line from standard input. On end of input (a pipe, or no

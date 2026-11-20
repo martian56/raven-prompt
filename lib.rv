@@ -1,6 +1,6 @@
 // raven-prompt: small interactive prompts for the terminal.
 //
-//     import "github.com/martian56/raven-prompt" { ask, confirm, select }
+//     from "github.com/martian56/raven-prompt" import ask, confirm, select
 //
 //     let name = ask("What's your name")
 //     if confirm("Continue", true) {
@@ -13,17 +13,17 @@
 // run does not hang. The answer interpreters (`yes_no`, `parse_choice`) are
 // plain functions you can call and test on their own.
 
-import std/string
-import std/io { input, println }
-import "github.com/martian56/raven-color" { Style }
+import std.string
+from std.io import input, println
+from "github.com/martian56/raven-color" import Style
 
 // Ask a free-text question and return the trimmed answer.
-fun ask(question: String) -> String {
+fun ask(question: str) -> str {
     return input(prompt(question)).trim()
 }
 
 // Ask, showing `default` in brackets; empty input returns the default.
-fun ask_default(question: String, default: String) -> String {
+fun ask_default(question: str, default: str) -> str {
     let answer = input(prompt("${question} [${default}]")).trim()
     if answer == "" {
         return default
@@ -32,8 +32,8 @@ fun ask_default(question: String, default: String) -> String {
 }
 
 // Ask a yes/no question. Empty input returns `default`.
-fun confirm(question: String, default: Bool) -> Bool {
-    let hint = "y/N"
+fun confirm(question: str, default: bool) -> bool {
+    var hint = "y/N"
     if default {
         hint = "Y/n"
     }
@@ -42,9 +42,9 @@ fun confirm(question: String, default: Bool) -> Bool {
 
 // Show a numbered menu and return the chosen 0-based index, or -1 for an
 // invalid or empty answer.
-fun select(question: String, options: List<String>) -> Int {
+fun select(question: str, options: list[str]) -> int {
     println(prompt(question))
-    let i = 0
+    var i = 0
     while i < options.len() {
         println("  ${(i + 1).to_string()}) ${options[i]}")
         i += 1
@@ -54,29 +54,29 @@ fun select(question: String, options: List<String>) -> Int {
 
 // Interpret a yes/no answer: `y`/`yes` (any case) is true, empty is `default`,
 // anything else is false.
-fun yes_no(answer: String, default: Bool) -> Bool {
+fun yes_no(answer: str, default: bool) -> bool {
     let a = answer.trim().to_lower()
     if a == "" {
         return default
     }
-    return a == "y" || a == "yes"
+    return a == "y" or a == "yes"
 }
 
 // Interpret a menu answer (a 1-based number) against `count` options, returning
 // the 0-based index or -1 when it is not a valid choice.
-fun parse_choice(answer: String, count: Int) -> Int {
+fun parse_choice(answer: str, count: int) -> int {
     match answer.trim().parse_int() {
-        Some(n) -> {
-            if n >= 1 && n <= count {
+        case Some(n) {
+            if n >= 1 and n <= count {
                 return n - 1
             }
-        },
-        None -> {},
+        }
+        case None {}
     }
     return 0 - 1
 }
 
 // The styled prompt prefix: the question in cyan bold, then a space.
-fun prompt(question: String) -> String {
+fun prompt(question: str) -> str {
     return "${Style.new().cyan().bold().apply(question)} "
 }

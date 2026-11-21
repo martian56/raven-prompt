@@ -10,7 +10,7 @@ answer interpreters are plain functions you can test on their own.
 
 ```toml
 [dependencies]
-"github.com/martian56/raven-prompt" = "v0.1.0"
+"github.com/martian56/raven-prompt" = "v0.2.0"
 ```
 
 That pulls in raven-color too.
